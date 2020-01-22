@@ -11,14 +11,14 @@ script:
 
 after_success:
   - docker build -t oyeme/multi-client ./client
-  - docker build -t oyeme/multi-ngnix ./ngnix
+  - docker build -t oyeme/multi-nginx ./nginx
   - docker build -t oyeme/multi-server ./server
   - docker build -t oyeme/multi-worker ./worker
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login  -u "$DOCKER_ID" --password-stdin
   - docker push oyeme/multi-client
-  - docker push oyeme/multi-ngnix
+  - docker push oyeme/multi-nginx
   - docker push oyeme/multi-server
   - docker push oyeme/multi-worker
   # test code
