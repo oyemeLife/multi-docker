@@ -1,0 +1,25 @@
+language: generic
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t oyeme/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true oyeme/react-test npm test
+
+after_success:
+  - docker build - t oyeme/multi-client ./client
+  - docker build - t oyeme/multi-ngnix ./ngnix
+  - docker build - t oyeme/multi-server ./server
+  - docker build - t oyeme/multi-worker ./worker
+
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login  -u "$DOCKER_ID" --password-stdin 
+  - docker push oyeme/multi-client
+  - docker push oyeme/multi-ngnix
+  - docker push oyeme/multi-server
+  - docker push oyeme/multi-worker
+
+  #
