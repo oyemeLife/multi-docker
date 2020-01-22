@@ -10,10 +10,10 @@ script:
   - docker run -e CI=true oyeme/react-test npm test
 
 after_success:
-  - docker build - t oyeme/multi-client ./client
-  - docker build - t oyeme/multi-ngnix ./ngnix
-  - docker build - t oyeme/multi-server ./server
-  - docker build - t oyeme/multi-worker ./worker
+  - docker build -t oyeme/multi-client ./client
+  - docker build -t oyeme/multi-ngnix ./ngnix
+  - docker build -t oyeme/multi-server ./server
+  - docker build -t oyeme/multi-worker ./worker
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login  -u "$DOCKER_ID" --password-stdin
@@ -21,4 +21,4 @@ after_success:
   - docker push oyeme/multi-ngnix
   - docker push oyeme/multi-server
   - docker push oyeme/multi-worker
-  #
+  # test code
