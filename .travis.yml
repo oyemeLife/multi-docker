@@ -1,6 +1,6 @@
 language: generic
 sudo: required
-services: 
+services:
   - docker
 
 before_install:
@@ -16,10 +16,9 @@ after_success:
   - docker build - t oyeme/multi-worker ./worker
 
   # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login  -u "$DOCKER_ID" --password-stdin 
+  - echo "$DOCKER_PASSWORD" | docker login  -u "$DOCKER_ID" --password-stdin
   - docker push oyeme/multi-client
   - docker push oyeme/multi-ngnix
   - docker push oyeme/multi-server
   - docker push oyeme/multi-worker
-
   #
